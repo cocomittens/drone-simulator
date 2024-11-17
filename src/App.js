@@ -15,7 +15,6 @@ import {
 } from "./util/util.js";
 
 // todo: clean up later
-// fix rendering issue
 export default function App() {
   const [dronePosition, setDronePosition] = useState([1, 1]);
   const [droneDirection, setDroneDirection] = useState("n");
