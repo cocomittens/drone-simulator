@@ -16,5 +16,6 @@ Simulates drones.
 
 * ```[n, s, e, w]``` = drone facing current direction
 * ```t``` = tree
+* ```d``` = delivery destination
 * ```o``` = original drone position
 * ```x``` = empty space
