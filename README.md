@@ -14,7 +14,7 @@ Simulates drones.
 ## Drone Delivery
 <img width="1404" alt="drone-delivery" src="https://github.com/user-attachments/assets/9bc2f019-e067-4cc5-8ebd-2c4f334cbe0b">
 
-* ```t``` = tree
 * ```[n, s, e, w]``` = drone facing current direction
+* ```t``` = tree
 * ```o``` = original drone position
 * ```x``` = empty space
