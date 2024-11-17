@@ -1,4 +1,4 @@
-# Drone Dimulator
+# Drone Simulator
 Simulates drones.
 
 ## Instructions
