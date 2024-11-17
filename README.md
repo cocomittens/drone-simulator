@@ -1,2 +1,2 @@
 # drone-simulator
-Created with CodeSandbox
+Drone simulator.
