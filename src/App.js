@@ -3,17 +3,20 @@ import { DIRECTIONS } from "./constants.ts";
 
 import { useState, useEffect } from "react";
 import { Options } from "./components/Options.tsx";
+import { DroneGrid } from "./components/DroneGrid.tsx";
 import {
   generateControlString,
   calculateMovement,
   sleep,
-  calculateDeliveryCost,
   calculateBattery,
-  canDeliver,
   calculateShortestPath,
   isValid,
   blowWind,
   generateGrid,
+  displayGrid,
+  displayPreview,
+  calculateDeliveryCost,
+  canDeliver,
 } from "./util/util.js";
 
 // todo: clean up later
@@ -33,62 +36,16 @@ export default function App() {
   const [mode, setMode] = useState("d");
 
   function renderGrid() {
-    const [rows, cols] = gridDimensions;
-
     if (droneGrid) {
-      return droneGrid.map((row, rowIndex) => {
-        return row.map((col, colIndex) => {
-          if (dronePosition[0] === rowIndex && dronePosition[1] === colIndex) {
-            return (
-              <div key={`${rowIndex}-${colIndex}`}>
-                <span id="drone"> {droneDirection}</span>
-              </div>
-            );
-          } else if (
-            destination &&
-            destination[0] === rowIndex &&
-            destination[1] === colIndex
-          ) {
-            return (
-              <div key={`${rowIndex}-${colIndex}`} style={{ color: "red" }}>
-                d
-              </div>
-            );
-          } else if (
-            originalPosition &&
-            originalPosition[0] === rowIndex &&
-            originalPosition[1] === colIndex
-          ) {
-            return (
-              <div key={`${rowIndex}-${colIndex}`} style={{ color: "orange" }}>
-                o
-              </div>
-            );
-          } else if (droneGrid[rowIndex][colIndex] === "t") {
-            return (
-              <div key={`${rowIndex}-${colIndex}`} style={{ color: "green" }}>
-                t
-              </div>
-            );
-          } else {
-            return <div key={`${rowIndex}-${colIndex}`}>x</div>;
-          }
-        });
-      });
+      return displayGrid(
+        droneGrid,
+        destination,
+        dronePosition,
+        droneDirection,
+        originalPosition
+      );
     } else {
-      return Array.from({ length: rows }, (row, rowIndex) => {
-        return Array.from({ length: cols }, (col, colIndex) => {
-          if (dronePosition[0] === rowIndex && dronePosition[1] === colIndex) {
-            return (
-              <div key={`${rowIndex}-${colIndex}`}>
-                <span id="drone"> {droneDirection}</span>
-              </div>
-            );
-          } else {
-            return <div key={`${rowIndex}-${colIndex}`}>x</div>;
-          }
-        });
-      });
+      return displayPreview(gridDimensions, dronePosition, droneDirection);
     }
   }
 
@@ -135,8 +92,7 @@ export default function App() {
           currCol,
           currDirection,
         ]);
-        currRow = newLocation[0];
-        currCol = newLocation[1];
+        [currRow, currCol] = newLocation;
         moveDrone(newLocation, grid);
       } else {
         currDirection = code;
@@ -224,21 +180,11 @@ export default function App() {
         executeDelivery={executeDelivery}
       />
 
-      <div id="battery">
-        <span>{battery}%</span>
-      </div>
-
-      <div id="grid-container">
-        <div
-          id="grid"
-          style={{
-            gridTemplateColumns: `repeat(${gridDimensions[1]}, 1fr)`,
-            gridTemplateRows: `repeat(${gridDimensions[0]}, 1fr)`,
-          }}
-        >
-          {renderGrid()}
-        </div>
-      </div>
+      <DroneGrid
+        renderGrid={renderGrid}
+        battery={battery}
+        gridDimensions={gridDimensions}
+      />
     </div>
   );
 }

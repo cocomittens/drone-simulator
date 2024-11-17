@@ -29,14 +29,14 @@ export const Location = (props) => {
           <OptionItem
             label="Row"
             type="number"
-            isDisabled={props.isMoving}
+            disabled={props.isMoving}
             value={String(props.dronePosition[0])}
             handleChange={rowChange}
           />
           <OptionItem
             label="Col"
             type="number"
-            isDisabled={props.isMoving}
+            disabled={props.isMoving}
             value={String(props.dronePosition[1])}
             handleChange={colChange}
           />
