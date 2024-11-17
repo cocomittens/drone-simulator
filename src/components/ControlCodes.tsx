@@ -35,15 +35,17 @@ export const ControlCodes = (props) => {
           type="text"
           value={props.controlCodes}
           disabled={props.isMoving || props.mode === "d"}
-          handleChange={controlCodeChange}
+          onChange={controlCodeChange}
         />
-        <OptionItem
-          label="Disable wind"
-          type="checkbox"
-          checked={props.windDisabled}
-          disabled={props.isMoving || props.mode === "d"}
-          handleChange={windChange}
-        />
+        {props.mode === "m" && (
+          <OptionItem
+            label="Disable wind"
+            type="checkbox"
+            checked={props.windDisabled}
+            disabled={props.isMoving}
+            onChange={windChange}
+          />
+        )}
       </div>
     </div>
   );

@@ -31,14 +31,14 @@ export const Dimensions = (props) => {
             type="number"
             disabled={props.isMoving}
             value={props.gridDimensions[0]}
-            handleChange={rowsChange}
+            onChange={rowsChange}
           />
           <OptionItem
             label="Cols"
             type="number"
             disabled={props.isMoving}
             value={props.gridDimensions[1]}
-            handleChange={colsChange}
+            onChange={colsChange}
           />
         </div>
         <OptionItem
@@ -46,7 +46,7 @@ export const Dimensions = (props) => {
           type="number"
           disabled={props.isMoving}
           value={props.treeProbability}
-          handleChange={treeProbChange}
+          onChange={treeProbChange}
         />
       </div>
     </div>

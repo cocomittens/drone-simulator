@@ -1,9 +1,9 @@
 import "./styles.css";
 import { DIRECTIONS } from "./constants.ts";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Options } from "./components/Options.tsx";
 import { DroneGrid } from "./components/DroneGrid.tsx";
+import { DroneProvider, useDrone } from "./context/drone.js";
 import {
   generateControlString,
   calculateMovement,
@@ -19,21 +19,37 @@ import {
   canDeliver,
 } from "./util/util.js";
 
-// todo: clean up later
-export default function App() {
-  const [dronePosition, setDronePosition] = useState([1, 1]);
-  const [droneDirection, setDroneDirection] = useState("n");
-  const [destination, setDestination] = useState(null);
+function AppContent() {
+  const {
+    dronePosition,
+    setDronePosition,
+    droneDirection,
+    setDroneDirection,
+    destination,
+    setDestination,
+    originalPosition,
+    setOriginalPosition,
+    battery,
+    setBattery,
+    isMoving,
+    setIsMoving,
+    moveDrone,
+    resetGrid,
+  } = useDrone();
+
   const [gridDimensions, setGridDimensions] = useState([8, 8]);
   const [controlCodes, setControlCodes] = useState("");
-  const [originalPosition, setOriginalPosition] = useState(null);
-  const [isMoving, setIsMoving] = useState(false);
   const [windDisabled, setWindDisabled] = useState(true);
   const [treeProbability, setTreeProbability] = useState(0.1);
   const [droneGrid, setDroneGrid] = useState(null);
-  const [battery, setBattery] = useState(100);
   const [capacity, setCapacity] = useState(100);
   const [mode, setMode] = useState("d");
+
+  const positionRef = useRef(dronePosition);
+
+  useEffect(() => {
+    positionRef.current = dronePosition;
+  }, [dronePosition]);
 
   function renderGrid() {
     if (droneGrid) {
@@ -46,27 +62,6 @@ export default function App() {
       );
     } else {
       return displayPreview(gridDimensions, dronePosition, droneDirection);
-    }
-  }
-
-  // Reset to original position
-  function resetGrid() {
-    setIsMoving(false);
-    setDronePosition(originalPosition);
-  }
-
-  // Move drone one unit in the current direction
-  function moveDrone(newPosition, grid) {
-    const [row, col] = newPosition;
-    if (isValid([row, col], grid)) {
-      setDronePosition(newPosition);
-    } else {
-      if (!windDisabled) {
-        alert("OH NO!");
-        resetGrid();
-      } else {
-        alert("Cannot move forward");
-      }
     }
   }
 
@@ -133,25 +128,41 @@ export default function App() {
     await deliver(dest, origin, grid, currCharge);
   }
 
-  // Wind
-  // Currently broken due to new features
-  // Todo: fix
+  async function blowWind() {
+    const currentPosition = positionRef.current;
+    const randomIndex = Math.floor(Math.random() * DIRECTIONS.length);
+    const randomDirection = DIRECTIONS[randomIndex];
+    const newPosition = [
+      currentPosition[0],
+      currentPosition[1],
+      randomDirection,
+    ];
+    const newLocation = calculateMovement(newPosition);
+    await moveDrone(newLocation, droneGrid, true);
+  }
 
   useEffect(() => {
-    let windId;
-    if (droneGrid && !windDisabled && isMoving) {
-      const startWind = () => {
-        const windInterval = Math.floor(Math.random() * 10);
-        windId = setTimeout(
-          () => blowWind(dronePosition, droneDirection, moveDrone),
-          windInterval * 1000
-        );
-      };
+    let windId = null;
 
-      startWind();
-    } else {
-      clearTimeout(windId);
+    async function scheduleWind() {
+      if (droneGrid && !windDisabled && isMoving) {
+        const windInterval = Math.floor(Math.random() * 10) * 1000;
+        windId = setTimeout(async () => {
+          await blowWind();
+          scheduleWind();
+        }, windInterval);
+      }
     }
+
+    if (droneGrid && !windDisabled && isMoving) {
+      scheduleWind();
+    }
+
+    return () => {
+      if (windId) {
+        clearTimeout(windId);
+      }
+    };
   }, [isMoving, droneGrid, windDisabled]);
 
   return (
@@ -161,8 +172,6 @@ export default function App() {
       <Options
         gridDimensions={gridDimensions}
         treeProbability={treeProbability}
-        dronePosition={dronePosition}
-        droneDirection={droneDirection}
         isMoving={isMoving}
         mode={mode}
         controlCodes={controlCodes}
@@ -171,13 +180,15 @@ export default function App() {
         setWindDisabled={setWindDisabled}
         setControlCodes={setControlCodes}
         setMode={setMode}
-        setIsMoving={setIsMoving}
         setGridDimensions={setGridDimensions}
         setTreeProbability={setTreeProbability}
-        setDronePosition={setDronePosition}
-        setDroneDireciton={setDroneDirection}
         setOriginalPosition={setOriginalPosition}
         executeDelivery={executeDelivery}
+        dronePosition={dronePosition}
+        setDroneDirection={setDroneDirection}
+        setDronePosition={setDronePosition}
+        originalPosition={originalPosition}
+        droneDirection={droneDirection}
       />
 
       <DroneGrid
@@ -186,5 +197,13 @@ export default function App() {
         gridDimensions={gridDimensions}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <DroneProvider>
+      <AppContent />
+    </DroneProvider>
   );
 }
