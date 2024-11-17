@@ -23,7 +23,7 @@ export const Location = (props) => {
 
   return (
     <div className="inputForm">
-      <h3>Initial Location</h3>
+      <h3>Drone Location</h3>
       <div className="parameters">
         <div className="directionLocation">
           <OptionItem
