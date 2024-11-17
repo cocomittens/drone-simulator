@@ -2,7 +2,7 @@
 Simulates drones.
 
 ## Instructions
-1. Clone repo
+1. `npm i`
 2. `npm start`
    
 ## Drone Settings
