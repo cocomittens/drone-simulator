@@ -1,0 +1,190 @@
+body {
+  background-color: #999;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #999;
+  padding-bottom: 2vh;
+}
+
+h2 {
+  margin-top: 0;
+}
+#grid-container {
+  background-color: #fff;
+  width: 90vw;
+  height: 60vh;
+  padding: 2vw;
+  border-radius: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #333;
+}
+#grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+}
+
+#battery {
+  position: relative;
+  top: 4vh;
+  left: 40vw;
+  color: #9157ff;
+}
+
+#options-container {
+  width: 90vw;
+  background-color: #dedede;
+  border: 3px solid #333;
+  border-radius: 1vw;
+  padding: 2vw;
+}
+
+#options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#drone {
+  color: #9157ff;
+}
+
+button {
+  width: 40vw;
+  border-radius: 1vw;
+  margin-top: 1vh;
+  padding: 1vw;
+  background-color: #9157ff;
+  color: #fff;
+  border: 3px solid #333;
+  border-radius: 1vw;
+}
+
+.directionLocation {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+
+  .inputForm {
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    h3 {
+      position: absolute;
+      top: 0;
+      font-size: 1.3em;
+    }
+  }
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 1vw 3vw;
+  border-radius: 1vw;
+  border: 2px solid #333;
+  width: 14%;
+  min-width: 20vw;
+  margin-bottom: 2vh;
+  position: relative;
+
+  h3 {
+    position: absolute;
+    top: 0;
+    font-size: 1.3em;
+  }
+
+  .parameters {
+    margin-top: 5vh;
+    button {
+      background-color: #333;
+      border: 3px solid #9157ff;
+      width: 100%;
+    }
+  }
+
+  #controls {
+    margin-top: 5vh;
+  }
+
+  .directionButton {
+    width: 5vw;
+    height: 5vw;
+    margin: 3%;
+    background: #fff;
+    border: 1px solid #333;
+    transition: background-color 0.3s ease;
+    border-radius: 1vw;
+    font-size: 3vw;
+
+    &.active {
+      background-color: #9157ff;
+      color: #fff;
+    }
+  }
+
+  label p {
+    margin-bottom: 1%;
+  }
+
+  input {
+    accent-color: #9157ff;
+  }
+
+  input:focus {
+    outline: 2px solid #9157ff;
+    outline-radius: 2vw;
+  }
+
+  input[type="number"] {
+    width: 60%;
+    height: 3vh;
+    padding: 1vw;
+    text-align: center;
+  }
+
+  input[type="text"] {
+    width: 90%;
+    padding: 1vw;
+  }
+
+  input[type="checkbox"] {
+    zoom: 1.5;
+  }
+}
+
+@media (max-width: 1250px) {
+  input {
+    font-size: 0.9rem;
+  }
+  button {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1250px) {
+  input {
+    font-size: 1.5rem;
+  }
+  button {
+    font-size: 1.2rem;
+  }
+}
