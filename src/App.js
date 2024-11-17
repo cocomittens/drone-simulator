@@ -201,30 +201,28 @@ export default function App() {
   return (
     <div className="App">
       <h1>Drone Simulator</h1>
-      <div id="options-container">
-        <h2>Grid Options</h2>
-        <Options
-          gridDimensions={gridDimensions}
-          treeProbability={treeProbability}
-          dronePosition={dronePosition}
-          droneDirection={droneDirection}
-          isMoving={isMoving}
-          mode={mode}
-          controlCodes={controlCodes}
-          windDisabled={windDisabled}
-          directions={DIRECTIONS}
-          setWindDisabled={setWindDisabled}
-          setControlCodes={setControlCodes}
-          setMode={setMode}
-          setIsMoving={setIsMoving}
-          setGridDimensions={setGridDimensions}
-          setTreeProbability={setTreeProbability}
-          setDronePosition={setDronePosition}
-          setDroneDireciton={setDroneDirection}
-          setOriginalPosition={setOriginalPosition}
-          executeDelivery={executeDelivery}
-        />
-      </div>
+
+      <Options
+        gridDimensions={gridDimensions}
+        treeProbability={treeProbability}
+        dronePosition={dronePosition}
+        droneDirection={droneDirection}
+        isMoving={isMoving}
+        mode={mode}
+        controlCodes={controlCodes}
+        windDisabled={windDisabled}
+        directions={DIRECTIONS}
+        setWindDisabled={setWindDisabled}
+        setControlCodes={setControlCodes}
+        setMode={setMode}
+        setIsMoving={setIsMoving}
+        setGridDimensions={setGridDimensions}
+        setTreeProbability={setTreeProbability}
+        setDronePosition={setDronePosition}
+        setDroneDireciton={setDroneDirection}
+        setOriginalPosition={setOriginalPosition}
+        executeDelivery={executeDelivery}
+      />
 
       <div id="battery">
         <span>{battery}%</span>
