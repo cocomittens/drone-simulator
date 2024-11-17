@@ -123,3 +123,30 @@ export function isValid(position, grid) {
     row >= 0 && row < rows && col >= 0 && col < cols && grid[row][col] === null
   );
 }
+
+export function blowWind(startPosition, direction, moveDrone) {
+  // calculate random direction
+  const randomIndex = Math.floor(Math.random() * directions.length);
+  const randomDirection = directions[randomIndex];
+  const newPosition = [startPosition[0], startPosition[1], direction];
+  const newLocation = calculateMovement(newPosition);
+  moveDrone(newLocation, randomDirection);
+}
+
+export function generateGrid(dronePosition, gridDimensions, treeProbability) {
+  const grid = [];
+  const squares = [];
+  for (let i = 0; i < gridDimensions[0]; i++) {
+    grid.push([]);
+    for (let j = 0; j < gridDimensions[1]; j++) {
+      const isDronePosition = dronePosition[0] === i && dronePosition[1] === j;
+      if (!isDronePosition && Math.random() <= treeProbability) {
+        grid[i].push("t");
+      } else {
+        grid[i].push(null);
+        squares.push([i, j]);
+      }
+    }
+  }
+  return { grid, squares };
+}

@@ -12,6 +12,8 @@ import {
   canDeliver,
   calculateShortestPath,
   isValid,
+  blowWind,
+  generateGrid,
 } from "./util/util.js";
 
 // todo: clean up later
@@ -30,27 +32,7 @@ export default function App() {
   const [capacity, setCapacity] = useState(100);
   const [mode, setMode] = useState("d");
 
-  function generateGrid() {
-    const result = [];
-    const squares = [];
-    for (let i = 0; i < gridDimensions[0]; i++) {
-      result.push([]);
-      for (let j = 0; j < gridDimensions[1]; j++) {
-        const isDronePosition =
-          dronePosition[0] === i && dronePosition[1] === j;
-        if (!isDronePosition && Math.random() <= treeProbability) {
-          result[i].push("t");
-        } else {
-          result[i].push(null);
-          squares.push([i, j]);
-        }
-      }
-    }
-    setDroneGrid(result);
-    return { grid: result, squares };
-  }
-
-  const renderGrid = () => {
+  function renderGrid() {
     const [rows, cols] = gridDimensions;
 
     if (droneGrid) {
@@ -108,7 +90,7 @@ export default function App() {
         });
       });
     }
-  };
+  }
 
   // Reset to original position
   function resetGrid() {
@@ -140,10 +122,10 @@ export default function App() {
   ) {
     setIsMoving(true);
     const codes = controlString.split("");
+    let [currRow, currCol] = startPosition;
     let currDirection = controlString[0];
-    let currRow = startPosition[0];
-    let currCol = startPosition[1];
     let currCharge = initialCharge;
+
     for (const code of codes) {
       currCharge = calculateBattery(currCharge, code, capacity);
       setBattery(currCharge);
@@ -162,6 +144,7 @@ export default function App() {
       }
       await sleep(1000);
     }
+
     setIsMoving(false);
     return currCharge;
   }
@@ -171,13 +154,21 @@ export default function App() {
     const path = calculateShortestPath(start, end, grid);
     const pathString = generateControlString(path);
     setControlCodes(pathString);
+
     return await executeControlCodes(start, pathString, grid, charge);
   }
 
   // Generate random destination within the grid and execute delivery
   async function executeDelivery() {
     const origin = dronePosition;
-    const { grid, squares } = generateGrid();
+
+    const { grid, squares } = generateGrid(
+      origin,
+      gridDimensions,
+      treeProbability
+    );
+    setDroneGrid(grid);
+
     const randomIndex = Math.floor(Math.random() * squares.length);
     const dest = squares[randomIndex];
     setDestination(dest);
@@ -189,24 +180,19 @@ export default function App() {
   // Wind
   // Currently broken due to new features
   // Todo: fix
-  function blowWind(startPosition, direction) {
-    // calculate random direction
-    const randomIndex = Math.floor(Math.random() * directions.length);
-    const randomDirection = directions[randomIndex];
-    const newPosition = [startPosition[0], startPosition[1], direction];
-    const newLocation = calculateMovement(newPosition);
-    moveDrone(newLocation, randomDirection);
-  }
 
   useEffect(() => {
     let windId;
     if (droneGrid && !windDisabled && isMoving) {
       const startWind = () => {
         const windInterval = Math.floor(Math.random() * 10);
-        windId = setTimeout(blowWind, windInterval * 1000);
+        windId = setTimeout(
+          () => blowWind(dronePosition, droneDirection, moveDrone),
+          windInterval * 1000
+        );
       };
 
-      startWind(dronePosition, droneDirection);
+      startWind();
     } else {
       clearTimeout(windId);
     }
