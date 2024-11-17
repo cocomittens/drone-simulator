@@ -34,14 +34,14 @@ export const ControlCodes = (props) => {
           label="Control codes"
           type="text"
           value={props.controlCodes}
-          isDisabled={props.isMoving || props.mode === "d"}
+          disabled={props.isMoving || props.mode === "d"}
           handleChange={controlCodeChange}
         />
         <OptionItem
           label="Disable wind"
           type="checkbox"
-          value={props.windDisabled}
-          isDisabled={props.isMoving || props.mode === "d"}
+          checked={props.windDisabled}
+          disabled={props.isMoving || props.mode === "d"}
           handleChange={windChange}
         />
       </div>

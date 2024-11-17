@@ -150,3 +150,69 @@ export function generateGrid(dronePosition, gridDimensions, treeProbability) {
   }
   return { grid, squares };
 }
+
+export function displayGrid(
+  grid,
+  destination,
+  dronePosition,
+  droneDirection,
+  originalPosition
+) {
+  return grid.map((row, rowIndex) => {
+    return row.map((col, colIndex) => {
+      if (dronePosition[0] === rowIndex && dronePosition[1] === colIndex) {
+        return (
+          <div key={`${rowIndex}-${colIndex}`}>
+            <span id="drone"> {droneDirection}</span>
+          </div>
+        );
+      } else if (
+        destination &&
+        destination[0] === rowIndex &&
+        destination[1] === colIndex
+      ) {
+        return (
+          <div key={`${rowIndex}-${colIndex}`} style={{ color: "red" }}>
+            d
+          </div>
+        );
+      } else if (
+        originalPosition &&
+        originalPosition[0] === rowIndex &&
+        originalPosition[1] === colIndex
+      ) {
+        return (
+          <div key={`${rowIndex}-${colIndex}`} style={{ color: "orange" }}>
+            o
+          </div>
+        );
+      } else if (grid[rowIndex][colIndex] === "t") {
+        return (
+          <div key={`${rowIndex}-${colIndex}`} style={{ color: "green" }}>
+            t
+          </div>
+        );
+      } else {
+        return <div key={`${rowIndex}-${colIndex}`}>x</div>;
+      }
+    });
+  });
+}
+
+export function displayPreview(gridDimensions, dronePosition, droneDirection) {
+  const [rows, cols] = gridDimensions;
+
+  return Array.from({ length: rows }, (row, rowIndex) => {
+    return Array.from({ length: cols }, (col, colIndex) => {
+      if (dronePosition[0] === rowIndex && dronePosition[1] === colIndex) {
+        return (
+          <div key={`${rowIndex}-${colIndex}`}>
+            <span id="drone"> {droneDirection}</span>
+          </div>
+        );
+      } else {
+        return <div key={`${rowIndex}-${colIndex}`}>x</div>;
+      }
+    });
+  });
+}
