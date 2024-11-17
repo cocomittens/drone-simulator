@@ -188,6 +188,8 @@ export default function App() {
   }
 
   // Wind
+  // Currently broken due to new features
+  // Todo: fix
   function blowWind(startPosition, direction) {
     // calculate random direction
     const randomIndex = Math.floor(Math.random() * directions.length);
