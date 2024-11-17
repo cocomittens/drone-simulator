@@ -31,18 +31,18 @@ export const Location = (props) => {
             type="number"
             disabled={props.isMoving}
             value={String(props.dronePosition[0])}
-            handleChange={rowChange}
+            onChange={rowChange}
           />
           <OptionItem
             label="Col"
             type="number"
             disabled={props.isMoving}
             value={String(props.dronePosition[1])}
-            handleChange={colChange}
+            onChange={colChange}
           />
         </div>
         <label>
-          <p>Direction: </p>
+          <p>Direction</p>
           {props.directions.map((direction) => {
             return (
               <input

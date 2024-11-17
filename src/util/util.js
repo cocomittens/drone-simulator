@@ -124,15 +124,6 @@ export function isValid(position, grid) {
   );
 }
 
-export function blowWind(startPosition, direction, moveDrone) {
-  // calculate random direction
-  const randomIndex = Math.floor(Math.random() * directions.length);
-  const randomDirection = directions[randomIndex];
-  const newPosition = [startPosition[0], startPosition[1], direction];
-  const newLocation = calculateMovement(newPosition);
-  moveDrone(newLocation, randomDirection);
-}
-
 export function generateGrid(dronePosition, gridDimensions, treeProbability) {
   const grid = [];
   const squares = [];
