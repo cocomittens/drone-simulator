@@ -1,5 +1,8 @@
 # drone-simulator
 Drone simulator.
+
+Try it [here](https://codesandbox.io/p/sandbox/lingering-morning-35csd9)
+
 ## Drone Settings
 <img width="1419" alt="drone-options" src="https://github.com/user-attachments/assets/af238d4d-878d-43b4-b3e2-0aa88dec3f53">
 
