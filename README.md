@@ -1,5 +1,5 @@
-# drone-simulator
-Drone simulator.
+# Drone Dimulator
+Simulates drones.
 
 ## Instructions
 1. Clone repo
