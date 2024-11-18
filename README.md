@@ -6,7 +6,7 @@ Simulates drones.
 2. `npm start`
    
 ## Settings
-<img width="1438" alt="Screen Shot 2024-11-17 at 5 03 50 PM" src="https://github.com/user-attachments/assets/edc62cf2-6aad-4721-b376-0fdcc585983e">
+<img width="1438" alt="Screen Shot 2024-11-17 at 11 24 07 PM" src="https://github.com/user-attachments/assets/62f109f6-24c1-4db5-8f88-c68981581be0">
 
 ### Modes
 * `Manual`: Executes control code string manually specified. Wind optional.
