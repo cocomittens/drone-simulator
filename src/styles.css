@@ -17,6 +17,11 @@ h2 {
   margin-top: 0;
 }
 
+h4 {
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+}
+
 #grid-container {
   background-color: #fff;
   width: 90vw;
@@ -68,7 +73,7 @@ button {
   padding: 1vw;
   background-color: #9157ff;
   color: #fff;
-  border: 3px solid #333;
+  border: 2px solid #333;
 }
 
 .directionLocation {
@@ -83,8 +88,8 @@ button {
 
 .inputForm {
   flex: 1;
-  min-width: 250px;
-  max-width: 400px;
+  min-width: 20vw;
+  max-width: 30vw;
   background-color: #fff;
   padding: 2rem 1.5rem;
   border-radius: 1vw;
@@ -92,7 +97,7 @@ button {
   margin-bottom: 2vh;
   position: relative;
   height: auto;
-  min-height: 300px;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,24 +111,27 @@ button {
 }
 
 .parameters {
-  margin-top: 5vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
 }
 
 .parameters button {
   background-color: #333;
-  border: 3px solid #9157ff;
-  width: 100%;
-}
-
-#controls {
-  margin-top: 5vh;
-  width: 100%;
+  border: 2px solid #9157ff;
+  width: 75%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .directionButton {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   margin: 3%;
   background: #fff;
   border: 1px solid #333;
