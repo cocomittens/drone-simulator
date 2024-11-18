@@ -10,6 +10,7 @@ import {
   sleep,
   calculateBattery,
   calculateShortestPath,
+  calculateEfficientPath,
   isValid,
   blowWind,
   generateGrid,
@@ -46,10 +47,15 @@ function AppContent() {
   const [mode, setMode] = useState("d");
 
   const positionRef = useRef(dronePosition);
+  const directionRef = useRef(droneDirection);
 
   useEffect(() => {
     positionRef.current = dronePosition;
   }, [dronePosition]);
+
+  useEffect(() => {
+    directionRef.current = droneDirection;
+  }, [droneDirection]);
 
   function renderGrid() {
     if (droneGrid) {
@@ -101,8 +107,8 @@ function AppContent() {
   }
 
   // Deliver drone from start to end point
-  async function deliver(start, end, grid, charge) {
-    const path = calculateShortestPath(start, end, grid);
+  async function deliver(start, end, currDirection, grid, charge) {
+    const path = calculateEfficientPath(start, end, currDirection, grid);
     const pathString = generateControlString(path);
     setControlCodes(pathString);
 
@@ -111,8 +117,8 @@ function AppContent() {
 
   // Generate random destination within the grid and execute delivery
   async function executeDelivery() {
-    const origin = dronePosition;
-
+    const origin = positionRef.current;
+    let currentDirection = directionRef.current;
     const { grid, squares } = generateGrid(
       origin,
       gridDimensions,
@@ -124,8 +130,15 @@ function AppContent() {
     const dest = squares[randomIndex];
     setDestination(dest);
 
-    const currCharge = await deliver(origin, dest, grid, battery);
-    await deliver(dest, origin, grid, currCharge);
+    const currCharge = await deliver(
+      origin,
+      dest,
+      currentDirection,
+      grid,
+      battery
+    );
+    currentDirection = directionRef.current;
+    await deliver(dest, origin, currentDirection, grid, currCharge);
   }
 
   async function blowWind() {
@@ -168,7 +181,6 @@ function AppContent() {
   return (
     <div className="App">
       <h1>Drone Simulator</h1>
-
       <Options
         gridDimensions={gridDimensions}
         treeProbability={treeProbability}
@@ -190,7 +202,6 @@ function AppContent() {
         originalPosition={originalPosition}
         droneDirection={droneDirection}
       />
-
       <DroneGrid
         renderGrid={renderGrid}
         battery={battery}

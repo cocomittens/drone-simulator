@@ -1,10 +1,5 @@
-// const calculateDirection(from, to) {
-//     // [1, 1]
-//     // [0, 1]
-
-//     // -> n, s, e ,w
-// }
-import { DIRECTIONS } from "../constants.ts";
+import { Heap } from "heap-js";
+import { DIRECTIONS, DIRECTION_COSTS } from "../constants.ts";
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -56,6 +51,7 @@ export function calculateDeliveryCost(codes) {
   return sum;
 }
 
+// Returns if drone has enough battery to deliver to destination
 export function canDeliver(codes) {
   const deliveryCost = calculateDeliveryCost(codes);
   return battery - deliveryCost >= 0;
@@ -74,7 +70,7 @@ export function calculateBattery(charge, code, capacity) {
 }
 
 // Use bfs to find the shortest path from current position to destiniation
-// Returns list of coordinates
+// Returns list of directions
 export function calculateShortestPath(curr, dest, grid) {
   const queue = [curr];
   const visited = new Set();
@@ -107,6 +103,60 @@ export function calculateShortestPath(curr, dest, grid) {
       ) {
         parent.set(`${newRow}-${newCol}`, [row, col, direction]);
         queue.push([newRow, newCol]);
+      }
+    }
+  }
+  return null;
+}
+
+// Use djikstras to find the most battery efficient path from current position to destiniation
+// Returns list of directions
+export function calculateEfficientPath(curr, dest, initialDirection, grid) {
+  const costComparator = (a, b) => a.cost - b.cost;
+  const heap = new Heap(costComparator);
+  const parent = new Map();
+  const distances = new Map();
+
+  heap.push({ value: `${curr[0]}-${curr[1]}-${initialDirection}`, cost: 0 });
+  distances.set(`${curr[0]}-${curr[1]}-${initialDirection}`, 0);
+
+  while (heap.size()) {
+    const { value, cost } = heap.pop();
+    const [stringRow, stringCol, currDirection] = value.split("-");
+    const row = parseInt(stringRow);
+    const col = parseInt(stringCol);
+
+    if (row === dest[0] && col === dest[1]) {
+      const result = [];
+      let key = value;
+
+      while (parent.has(key)) {
+        const [newRow, newCol, prevDirection, direction] = parent.get(key);
+        result.unshift(direction);
+        key = `${newRow}-${newCol}-${prevDirection}`;
+      }
+
+      return result;
+    }
+
+    if (cost > distances.get(value)) {
+      continue;
+    }
+
+    for (const direction of DIRECTIONS) {
+      const turnCost = currDirection !== direction ? 0.5 : 0;
+      const [newRow, newCol] = calculateMovement([row, col, direction]);
+
+      if (isValid([newRow, newCol], grid)) {
+        const movementCost = Math.abs(newRow - row + (newCol - col));
+        const newCost = cost + movementCost + turnCost;
+        const newKey = `${newRow}-${newCol}-${direction}`;
+
+        if (!distances.has(newKey) || newCost < distances.get(newKey)) {
+          distances.set(newKey, newCost);
+          heap.push({ value: newKey, cost: newCost });
+          parent.set(newKey, [row, col, currDirection, direction]);
+        }
       }
     }
   }
