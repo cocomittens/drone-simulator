@@ -1,6 +1,8 @@
 # Drone Simulator
 Simulates drones.
 
+Try it [here](https://drone-simulator-sepia.vercel.app/)
+
 ## Instructions
 1. `npm i`
 2. `npm start`
