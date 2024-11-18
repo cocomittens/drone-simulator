@@ -9,15 +9,10 @@ import {
   calculateMovement,
   sleep,
   calculateBattery,
-  calculateShortestPath,
   calculateEfficientPath,
-  isValid,
-  blowWind,
   generateGrid,
   displayGrid,
   displayPreview,
-  calculateDeliveryCost,
-  canDeliver,
 } from "./util/util.js";
 
 function AppContent() {
