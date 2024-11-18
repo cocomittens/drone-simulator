@@ -144,10 +144,12 @@ export function calculateEfficientPath(curr, dest, initialDirection, grid) {
     }
 
     for (const direction of DIRECTIONS) {
+      const turnCost = currDirection !== direction ? 0.5 : 0;
       const [newRow, newCol] = calculateMovement([row, col, direction]);
+
       if (isValid([newRow, newCol], grid)) {
-        const movementCost = DIRECTION_COSTS[direction];
-        const newCost = cost + movementCost;
+        const movementCost = Math.abs(newRow - row + (newCol - col));
+        const newCost = cost + movementCost + turnCost;
         const newKey = `${newRow}-${newCol}-${direction}`;
 
         if (!distances.has(newKey) || newCost < distances.get(newKey)) {
