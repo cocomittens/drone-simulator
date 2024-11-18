@@ -8,8 +8,18 @@ Simulates drones.
 ## Settings
 <img width="1439" alt="Screen Shot 2024-11-18 at 12 03 27 AM" src="https://github.com/user-attachments/assets/cad3c6f8-9cf6-4d61-80bd-0fb4491c4b4b">
 
+### Dimensions
+* `Rows`: Number of rows in the grid.
+* `Cols`: Number of cols in the grid.
+* `Tree Probability`: Number between 0 and 1 representing the probability of each square being a tree.
+* 
+### Location
+* `Row`: Starting row of drone.
+* `Cols`: Starting col of drone.
+* `Direction`: Starting direction of drone.
 
-### Modes
+### Control Codes
+#### Modes
 * `Manual`: Executes control code string manually specified. Wind optional.
 * `Delivery`: Generates random delivery destination, executes delivery there and back. Wind disabled.
 
