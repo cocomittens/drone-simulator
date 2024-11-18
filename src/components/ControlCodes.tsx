@@ -13,6 +13,7 @@ export const ControlCodes = (props) => {
     <div className="inputForm">
       <h3>Control Codes</h3>
       <div className="parameters" id="controls">
+        <h4>Mode</h4>
         <button
           onClick={() => {
             props.setMode("m");
