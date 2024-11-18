@@ -107,8 +107,8 @@ function AppContent() {
   }
 
   // Deliver drone from start to end point
-  async function deliver(start, end, currentPosition, grid, charge) {
-    const path = calculateEfficientPath(start, end, grid);
+  async function deliver(start, end, currDirection, grid, charge) {
+    const path = calculateEfficientPath(start, end, currDirection, grid);
     const pathString = generateControlString(path);
     setControlCodes(pathString);
 

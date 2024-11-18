@@ -122,23 +122,24 @@ export function calculateEfficientPath(curr, dest, initialDirection, grid) {
 
   while (heap.size()) {
     const { value, cost } = heap.pop();
-    const [row, col, currDirection] = value.split("-").map(Number);
+    const [stringRow, stringCol, currDirection] = value.split("-");
+    const row = parseInt(stringRow);
+    const col = parseInt(stringCol);
 
     if (row === dest[0] && col === dest[1]) {
-      let key = `${row}-${col}`;
       const result = [];
+      let key = value;
+
       while (parent.has(key)) {
         const [newRow, newCol, prevDirection, direction] = parent.get(key);
         result.unshift(direction);
         key = `${newRow}-${newCol}-${prevDirection}`;
       }
+
       return result;
     }
 
-    if (
-      distances.has(`${row}-${col}`) &&
-      distances.get(`${row}-${col}`) < cost
-    ) {
+    if (cost > distances.get(value)) {
       continue;
     }
 
