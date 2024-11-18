@@ -6,14 +6,14 @@ Simulates drones.
 2. `npm start`
    
 ## Drone Settings
-<img width="1419" alt="drone-options" src="https://github.com/user-attachments/assets/af238d4d-878d-43b4-b3e2-0aa88dec3f53">
+<img width="1438" alt="Screen Shot 2024-11-17 at 5 03 50 PM" src="https://github.com/user-attachments/assets/edc62cf2-6aad-4721-b376-0fdcc585983e">
 
 ### Modes
 * `Manual`: Executes control code string manually specified. Wind optional.
 * `Delivery`: Generates random delivery destination, executes delivery there and back. Wind disabled.
 
 ## Drone Delivery
-<img width="1404" alt="drone-delivery" src="https://github.com/user-attachments/assets/9bc2f019-e067-4cc5-8ebd-2c4f334cbe0b">
+<img width="1388" alt="Screen Shot 2024-11-17 at 5 04 45 PM" src="https://github.com/user-attachments/assets/e984d580-c50f-4abd-ac26-fd1682081263">
 
 ### Letters
 * `[w, s, e, n]`: Direction of drone at current position
