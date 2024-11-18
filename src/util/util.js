@@ -1,10 +1,5 @@
-// const calculateDirection(from, to) {
-//     // [1, 1]
-//     // [0, 1]
-
-//     // -> n, s, e ,w
-// }
-import { DIRECTIONS } from "../constants.ts";
+import { Heap } from "../heap/heap.js";
+import { DIRECTIONS, DIRECTION_COSTS } from "../constants.ts";
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -56,6 +51,7 @@ export function calculateDeliveryCost(codes) {
   return sum;
 }
 
+// Returns if drone has enough battery to deliver to destination
 export function canDeliver(codes) {
   const deliveryCost = calculateDeliveryCost(codes);
   return battery - deliveryCost >= 0;
@@ -111,6 +107,45 @@ export function calculateShortestPath(curr, dest, grid) {
     }
   }
   return null;
+}
+
+// Use djikstras to find the most battery efficient path from current position to destiniation
+// Returns list of coordinates
+export function calculateEfficientPath(curr, dest, direction, grid) {
+  const movementCost = DIRECTION_COSTS[direction];
+  const costComparator = (a, b) => a.cost - b.cost;
+  const heap = new Heap(costComparator);
+  const parent = new Map();
+  heap.push({ value: curr, cost: 0 });
+
+  while (heap.size()) {
+    const { value, cost } = heap.pop();
+    const [row, col] = value;
+    if (row === dest[0] && col === dest[1]) {
+      let key = `${row}-${col}`;
+      const result = [];
+      while (parent.has(key)) {
+        const [newRow, newCol, direction] = parent.get(key);
+        result.unshift(direction);
+        key = `${newRow}-${newCol}`;
+      }
+      return result;
+    }
+
+    for (const direction of DIRECTIONS) {
+      const [newRow, newCol] = calculateMovement([row, col, direction]);
+      if (isValid([newRow, newCol], grid)) {
+        const newCost = cost + movementCost + DIRECTION_COSTS[direction];
+        if (
+          !heap.has([newRow, newCol]) ||
+          newCost < heap.getCost([newRow, newCol])
+        ) {
+          heap.push({ value: [newRow, newCol], cost: newCost });
+          parent.set(`${newRow}-${newCol}`, [row, col, direction]);
+        }
+      }
+    }
+  }
 }
 
 // Return if valid position on grid
