@@ -12,7 +12,7 @@ Simulates drones.
 * `Rows`: Number of rows in the grid.
 * `Cols`: Number of cols in the grid.
 * `Tree Probability`: Number between 0 and 1 representing the probability of each square being a tree.
-* 
+  
 ### Location
 * `Row`: Starting row of drone.
 * `Cols`: Starting col of drone.
