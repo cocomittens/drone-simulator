@@ -1,5 +1,4 @@
-import React from "react";
-import "../styles.css";
+import "../index.css";
 
 export const DroneGrid = (props) => {
   return (

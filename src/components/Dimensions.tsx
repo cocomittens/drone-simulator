@@ -1,6 +1,7 @@
-import React from "react";
+import "../index.css";
+
+import { OptionGroup } from "./OptionGroup.tsx";
 import { OptionItem } from "./OptionItem.tsx";
-import "../styles.css";
 
 export const Dimensions = (props) => {
   const rowsChange = (e) => {
@@ -21,34 +22,41 @@ export const Dimensions = (props) => {
     }
   };
 
+  const data = [
+    {
+      id: "rows",
+      label: "Rows",
+      type: "number",
+      value: props.gridDimensions[0],
+      onChange: rowsChange,
+    },
+    {
+      label: "Cols",
+      type: "number",
+      value: props.gridDimensions[1],
+      onChange: colsChange,
+    },
+    {
+      label: "Tree Probability",
+      type: "number",
+      value: props.treeProbability,
+      onChange: treeProbChange,
+    },
+  ];
+
   return (
-    <div className="inputForm">
-      <h3>Dimensions</h3>
-      <div className="parameters">
-        <div className="directionLocation">
-          <OptionItem
-            label="Rows"
-            type="number"
-            disabled={props.isMoving}
-            value={props.gridDimensions[0]}
-            onChange={rowsChange}
-          />
-          <OptionItem
-            label="Cols"
-            type="number"
-            disabled={props.isMoving}
-            value={props.gridDimensions[1]}
-            onChange={colsChange}
-          />
-        </div>
-        <OptionItem
-          label="Tree Probability"
-          type="number"
-          disabled={props.isMoving}
-          value={props.treeProbability}
-          onChange={treeProbChange}
-        />
-      </div>
-    </div>
+    <OptionGroup title="Dimensions" inputData={data}>
+      {data.map((data) =>
+        Array.isArray(data) ? (
+          <div className="flex justify-evenly">
+            {data.map((item) => (
+              <OptionItem {...item} />
+            ))}
+          </div>
+        ) : (
+          <OptionItem {...data} />
+        )
+      )}
+    </OptionGroup>
   );
 };
