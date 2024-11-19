@@ -1,9 +1,9 @@
-import "./styles.css";
+import "./index.css";
 import { DIRECTIONS } from "./constants.ts";
 import { useState, useEffect, useRef } from "react";
 import { Options } from "./components/Options.tsx";
 import { DroneGrid } from "./components/DroneGrid.tsx";
-import { DroneProvider, useDrone } from "./context/drone.js";
+import { DroneProvider, useDrone } from "./context/drone.jsx";
 import {
   generateControlString,
   calculateMovement,
@@ -13,7 +13,7 @@ import {
   generateGrid,
   displayGrid,
   displayPreview,
-} from "./util/util.js";
+} from "./util/util";
 
 function AppContent() {
   const {
@@ -30,7 +30,6 @@ function AppContent() {
     isMoving,
     setIsMoving,
     moveDrone,
-    resetGrid,
   } = useDrone();
 
   const [gridDimensions, setGridDimensions] = useState([8, 8]);
@@ -38,6 +37,7 @@ function AppContent() {
   const [windDisabled, setWindDisabled] = useState(true);
   const [treeProbability, setTreeProbability] = useState(0.1);
   const [droneGrid, setDroneGrid] = useState(null);
+  //@ts-ignore
   const [capacity, setCapacity] = useState(100);
   const [mode, setMode] = useState("d");
 

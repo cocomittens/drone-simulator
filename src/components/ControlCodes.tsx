@@ -1,6 +1,5 @@
-import React from "react";
 import { OptionItem } from "./OptionItem.tsx";
-import "../styles.css";
+import "../index.css";
 
 export const ControlCodes = (props) => {
   const controlCodeChange = (e) => {

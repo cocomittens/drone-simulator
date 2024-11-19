@@ -1,12 +1,10 @@
-import React from "react";
-
 import { Dimensions } from "./Dimensions.tsx";
 import { Location } from "./Location.tsx";
 import { ControlCodes } from "./ControlCodes.tsx";
-import { useDrone } from "../context/drone.js";
+import { useDrone } from "../context/drone.jsx";
 import { DIRECTIONS } from "../constants.ts";
 
-import "../styles.css";
+import "../index.css";
 
 export const Options = (props) => {
   const {
