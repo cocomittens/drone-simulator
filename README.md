@@ -10,7 +10,7 @@ Try it [here](https://drone-simulator-sepia.vercel.app/)
 2. `npm start`
 
 ## Settings
-<img width="1330" alt="Screen Shot 2024-11-19 at 12 14 58 AM" src="https://github.com/user-attachments/assets/cdcf6ebc-f278-485b-a414-aff47da00a39">
+<img width="1323" alt="Screen Shot 2024-11-19 at 12 20 07 AM" src="https://github.com/user-attachments/assets/f41042c7-15fa-4fbd-bc58-cc2a26c70da8">
 
 ### Dimensions
 
