@@ -54,7 +54,7 @@ export const Location = (props) => {
           props.setDroneDirection(direction);
         },
         disabled: props.isMoving,
-        className: `directionButton size-12 bg-white text-gray-900 ${
+        className: `directionButton size-10 font-size- bg-white text-gray-900 ${
           (!props.originalPosition && props.droneDirection === direction) ||
           (props.originalPosition && props.originalPosition[2] === direction)
             ? "active"
