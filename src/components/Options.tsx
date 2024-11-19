@@ -3,6 +3,7 @@ import { Location } from "./Location.tsx";
 import { ControlCodes } from "./ControlCodes.tsx";
 import { useDrone } from "../context/drone.jsx";
 import { DIRECTIONS } from "../constants.ts";
+import { Button } from "@/components/ui/button";
 
 import "../index.css";
 
@@ -50,15 +51,16 @@ export const Options = (props) => {
           />
         </div>
 
-        <button
+        <Button
           onClick={async () => {
             setOriginalPosition(props.dronePosition);
             await props.executeDelivery();
           }}
           disabled={isMoving}
+          className="bg-violet-600"
         >
           <span>{props.mode === "d" ? "Delivery" : "Execute"}</span>
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -10,10 +10,10 @@ export const OptionGroup = (props) => {
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="h-60 flex flex-col justify-between">
         {inputData.map((data) =>
           Array.isArray(data) ? (
-            <div className="flex">
+            <div className="flex justify-evenly">
               {data.map((item) => (
                 <OptionItem {...item} />
               ))}

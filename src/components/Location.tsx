@@ -1,4 +1,3 @@
-import { OptionItem } from "./OptionItem.tsx";
 import { OptionGroup } from "./OptionGroup.tsx";
 import "../index.css";
 
@@ -57,7 +56,7 @@ export const Location = (props) => {
           props.setDroneDirection(direction);
         },
         disabled: props.isMoving,
-        className: `directionButton ${
+        className: `directionButton w-10 h-10 bg-white text-gray-900 ${
           (!props.originalPosition && props.droneDirection === direction) ||
           (props.originalPosition && props.originalPosition[2] === direction)
             ? "active"

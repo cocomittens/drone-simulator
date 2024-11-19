@@ -133,7 +133,7 @@ button {
   justify-content: center;
 }
 
-.directionButton {
+/* .directionButton {
   width: 3rem;
   height: 3rem;
   margin: 3%;
@@ -142,10 +142,10 @@ button {
   transition: background-color 0.3s ease;
   border-radius: 0.5rem;
   font-size: 1.5rem;
-}
+} */
 
 .directionButton.active {
-  background-color: #9157ff;
+  background-color: #7c3aed;
   color: #fff;
 }
 

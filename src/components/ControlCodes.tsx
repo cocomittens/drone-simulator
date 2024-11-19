@@ -8,18 +8,20 @@ export const ControlCodes = (props) => {
 
   const windChange = () => props.setWindDisabled(!props.windDisabled);
   const data = [
+    { type: "label", label: "Modes" },
     {
       type: "button",
-      label: "Modes",
       text: "Manual",
       onClick: () => props.setMode("m"),
       disabled: props.isMoving,
+      className: "border-violet-600 w-30",
     },
     {
       type: "button",
       text: "Delivery",
       onClick: () => props.setMode("d"),
       disabled: props.isMoving,
+      className: "border-violet-600",
     },
     {
       label: "Control codes",
@@ -34,6 +36,7 @@ export const ControlCodes = (props) => {
       checked: props.windDisabled,
       disabled: props.isMoving || props.mode === "d",
       onChange: windChange,
+      className: "accent-violet-600 size-6",
     },
   ];
 
