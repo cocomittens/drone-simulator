@@ -196,6 +196,8 @@ function AppContent() {
         setDronePosition={setDronePosition}
         originalPosition={originalPosition}
         droneDirection={droneDirection}
+        executeControlCodes={executeControlCodes}
+        setDroneGrid={setDroneGrid}
       />
       <DroneGrid
         renderGrid={renderGrid}
