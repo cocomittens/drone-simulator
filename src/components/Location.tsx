@@ -69,7 +69,7 @@ export const Location = (props) => {
       {data.map((data) =>
         Array.isArray(data) ? (
           <div className="flex flex-col justify-evenly">
-            <Label>Modes</Label>
+            <Label>Direction</Label>
             <div className="flex justify-evenly">
               {data.map((item) => (
                 <OptionItem {...item} />
