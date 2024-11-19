@@ -21,7 +21,7 @@ export const Options = (props) => {
   return (
     <div id="options-container">
       <h2 className="text-xl font-semibold mb-2">Grid Options</h2>
-      <div id="options">
+      <div className="grid grid-cols-3 gap-8">
         <Dimensions
           isMoving={isMoving}
           gridDimensions={props.gridDimensions}
