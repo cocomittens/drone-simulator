@@ -73,7 +73,7 @@ export const Options = (props) => {
             await props.executeDelivery();
           }}
           disabled={isMoving}
-          className="bg-violet-600 w-1/4"
+          className="bg-violet-600 w-72"
         >
           <span>{props.mode === "d" ? "Delivery" : "Execute"}</span>
         </Button>
