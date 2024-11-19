@@ -14,6 +14,8 @@ import {
 
 import "../index.css";
 
+import { generateGrid } from "../util/util";
+
 export const Options = (props) => {
   const {
     dronePosition,
@@ -23,6 +25,7 @@ export const Options = (props) => {
     originalPosition,
     setOriginalPosition,
     isMoving,
+    battery,
   } = useDrone();
 
   return (
@@ -70,7 +73,23 @@ export const Options = (props) => {
         <Button
           onClick={async () => {
             setOriginalPosition(props.dronePosition);
-            await props.executeDelivery();
+            if (props.mode === "d") {
+              await props.executeDelivery();
+            } else {
+              const { grid } = generateGrid(
+                props.dronePosition,
+                props.gridDimensions,
+                props.treeProbability
+              );
+              props.setDroneGrid(grid);
+
+              await props.executeControlCodes(
+                props.dronePosition,
+                props.controlCodes,
+                grid,
+                battery
+              );
+            }
           }}
           disabled={isMoving}
           className="bg-violet-600 w-72"
