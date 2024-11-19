@@ -14,6 +14,7 @@ export const ControlCodes = (props) => {
       {
         type: "button",
         text: "Manual",
+        label: "",
         onClick: () => props.setMode("m"),
         disabled: props.isMoving,
         className: `directionButton bg-white text-gray-900 w-full ${
@@ -23,6 +24,7 @@ export const ControlCodes = (props) => {
       {
         type: "button",
         text: "Delivery",
+        label: "",
         onClick: () => props.setMode("d"),
         disabled: props.isMoving,
         className: `directionButton bg-white text-gray-900 mb-2 w-full ${

@@ -1,4 +1,3 @@
-import { OptionItem } from "./OptionItem.tsx";
 import "../index.css";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
