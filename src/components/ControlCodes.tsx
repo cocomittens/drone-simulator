@@ -16,14 +16,18 @@ export const ControlCodes = (props) => {
         text: "Manual",
         onClick: () => props.setMode("m"),
         disabled: props.isMoving,
-        className: "border-violet-600 w-full",
+        className: `directionButton bg-white text-gray-900 w-full ${
+          props.mode === "m" ? "active" : ""
+        }`,
       },
       {
         type: "button",
         text: "Delivery",
         onClick: () => props.setMode("d"),
         disabled: props.isMoving,
-        className: "border-violet-600 mb-2 w-full",
+        className: `directionButton bg-white text-gray-900 mb-2 w-full ${
+          props.mode === "d" ? "active" : ""
+        }`,
       },
     ],
     {
