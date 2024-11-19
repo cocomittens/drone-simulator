@@ -83,12 +83,7 @@ export const Options = (props) => {
                 props.treeProbability
               );
               props.setDroneGrid(grid);
-              console.log(
-                props.dronePosition,
-                props.controlCodes,
-                grid,
-                battery
-              );
+
               await props.executeControlCodes(
                 props.dronePosition,
                 props.controlCodes,
