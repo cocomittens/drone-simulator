@@ -1,5 +1,6 @@
-import { OptionItem } from "./OptionItem.tsx";
 import "../index.css";
+
+import { OptionGroup } from "./OptionGroup.tsx";
 
 export const Dimensions = (props) => {
   const rowsChange = (e) => {
@@ -20,34 +21,27 @@ export const Dimensions = (props) => {
     }
   };
 
-  return (
-    <div className="inputForm">
-      <h3>Dimensions</h3>
-      <div className="parameters">
-        <div className="directionLocation">
-          <OptionItem
-            label="Rows"
-            type="number"
-            disabled={props.isMoving}
-            value={props.gridDimensions[0]}
-            onChange={rowsChange}
-          />
-          <OptionItem
-            label="Cols"
-            type="number"
-            disabled={props.isMoving}
-            value={props.gridDimensions[1]}
-            onChange={colsChange}
-          />
-        </div>
-        <OptionItem
-          label="Tree Probability"
-          type="number"
-          disabled={props.isMoving}
-          value={props.treeProbability}
-          onChange={treeProbChange}
-        />
-      </div>
-    </div>
-  );
+  const data = [
+    {
+      id: "rows",
+      label: "Rows",
+      type: "number",
+      value: props.gridDimensions[0],
+      onChange: rowsChange,
+    },
+    {
+      label: "Cols",
+      type: "number",
+      value: props.gridDimensions[1],
+      onChange: colsChange,
+    },
+    {
+      label: "Tree Probability",
+      type: "number",
+      value: props.treeProbability,
+      onChange: treeProbChange,
+    },
+  ];
+
+  return <OptionGroup title="Dimensions" inputData={data} />;
 };

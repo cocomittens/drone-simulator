@@ -1,4 +1,4 @@
-import { OptionItem } from "./OptionItem.tsx";
+import { OptionGroup } from "./OptionGroup.tsx";
 import "../index.css";
 
 export const ControlCodes = (props) => {
@@ -7,46 +7,35 @@ export const ControlCodes = (props) => {
   };
 
   const windChange = () => props.setWindDisabled(!props.windDisabled);
+  const data = [
+    {
+      type: "button",
+      label: "Modes",
+      text: "Manual",
+      onClick: () => props.setMode("m"),
+      disabled: props.isMoving,
+    },
+    {
+      type: "button",
+      text: "Delivery",
+      onClick: () => props.setMode("d"),
+      disabled: props.isMoving,
+    },
+    {
+      label: "Control codes",
+      type: "text",
+      value: props.controlCodes,
+      disabled: props.isMoving || props.mode === "d",
+      onChange: controlCodeChange,
+    },
+    {
+      label: "Disable wind",
+      type: "checkbox",
+      checked: props.windDisabled,
+      disabled: props.isMoving || props.mode === "d",
+      onChange: windChange,
+    },
+  ];
 
-  return (
-    <div className="inputForm">
-      <h3>Control Codes</h3>
-      <div className="parameters" id="controls">
-        <h4>Mode</h4>
-        <button
-          onClick={() => {
-            props.setMode("m");
-          }}
-          disabled={props.isMoving}
-        >
-          <span>Manual</span>
-        </button>
-        <button
-          onClick={() => {
-            props.setMode("d");
-          }}
-          disabled={props.isMoving}
-        >
-          <span>Delivery</span>
-        </button>
-
-        <OptionItem
-          label="Control codes"
-          type="text"
-          value={props.controlCodes}
-          disabled={props.isMoving || props.mode === "d"}
-          onChange={controlCodeChange}
-        />
-        {props.mode === "m" && (
-          <OptionItem
-            label="Disable wind"
-            type="checkbox"
-            checked={props.windDisabled}
-            disabled={props.isMoving}
-            onChange={windChange}
-          />
-        )}
-      </div>
-    </div>
-  );
+  return <OptionGroup title="Control Codes" inputData={data} />;
 };
