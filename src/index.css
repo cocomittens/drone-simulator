@@ -61,9 +61,12 @@ h4 {
 }
 
 #options {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  gap: 2vw;
+  padding: 0 1vw;
 }
 
 #drone {
@@ -71,7 +74,6 @@ h4 {
 }
 
 button {
-  width: 40vw;
   border-radius: 1vw;
   margin-top: 1vh;
   padding: 1vw;
@@ -80,15 +82,7 @@ button {
   border: 2px solid #333;
 }
 
-.directionLocation {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 2vw;
-  padding: 0 1vw;
-}
+
 
 .inputForm {
   flex: 1;

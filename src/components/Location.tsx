@@ -1,4 +1,6 @@
 import { OptionGroup } from "./OptionGroup.tsx";
+import { OptionItem } from "./OptionItem.tsx";
+import { Label } from "@/components/ui/label";
 import "../index.css";
 
 export const Location = (props) => {
@@ -41,10 +43,6 @@ export const Location = (props) => {
       value: props.dronePosition[1],
       onChange: colChange,
     },
-    {
-      type: "label",
-      label: "Directions",
-    },
   ];
 
   data.push(
@@ -66,5 +64,22 @@ export const Location = (props) => {
     })
   );
 
-  return <OptionGroup title="Location" inputData={data} />;
+  return (
+    <OptionGroup title="Location" inputData={data}>
+      {data.map((data) =>
+        Array.isArray(data) ? (
+          <div className="flex flex-col justify-evenly">
+            <Label>Modes</Label>
+            <div className="flex justify-evenly">
+              {data.map((item) => (
+                <OptionItem {...item} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <OptionItem {...data} />
+        )
+      )}
+    </OptionGroup>
+  );
 };

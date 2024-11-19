@@ -1,6 +1,7 @@
 import "../index.css";
 
 import { OptionGroup } from "./OptionGroup.tsx";
+import { OptionItem } from "./OptionItem.tsx";
 
 export const Dimensions = (props) => {
   const rowsChange = (e) => {
@@ -43,5 +44,19 @@ export const Dimensions = (props) => {
     },
   ];
 
-  return <OptionGroup title="Dimensions" inputData={data} />;
+  return (
+    <OptionGroup title="Dimensions" inputData={data}>
+      {data.map((data) =>
+        Array.isArray(data) ? (
+          <div className="flex justify-evenly">
+            {data.map((item) => (
+              <OptionItem {...item} />
+            ))}
+          </div>
+        ) : (
+          <OptionItem {...data} />
+        )
+      )}
+    </OptionGroup>
+  );
 };

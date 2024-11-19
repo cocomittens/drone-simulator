@@ -175,7 +175,7 @@ function AppContent() {
 
   return (
     <div className="App">
-      <h1>Drone Simulator</h1>
+      <h1 className="text-2xl my-2 font-semibold">Drone Simulator</h1>
       <Options
         gridDimensions={gridDimensions}
         treeProbability={treeProbability}
