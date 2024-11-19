@@ -73,7 +73,6 @@ export const Options = (props) => {
         <Button
           onClick={async () => {
             setOriginalPosition(props.dronePosition);
-            console.log(props.mode);
             if (props.mode === "d") {
               await props.executeDelivery();
             } else {
