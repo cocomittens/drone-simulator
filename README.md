@@ -42,3 +42,6 @@ Try it [here](https://drone-simulator-sepia.vercel.app/)
 - `o`: Original drone position
 - `t`: Tree
 - `x`: Empty space
+
+### Battery
+Remaining battery percentage in upper right hand corner (each turn costs 0.5 battery units, each forward movement 1 unit)
