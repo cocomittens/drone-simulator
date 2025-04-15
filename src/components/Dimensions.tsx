@@ -5,20 +5,35 @@ import { OptionItem } from "./OptionItem.tsx";
 
 export const Dimensions = (props) => {
   const rowsChange = (e) => {
-    if (Number(e.target.value) > 0) {
-      props.setGridDimensions([e.target.value, props.gridDimensions[1]]);
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      props.setGridDimensions([
+        value === "" ? 0 : Number(value),
+        props.gridDimensions[1],
+      ]);
     }
   };
 
   const colsChange = (e) => {
-    if (Number(e.target.value) > 0) {
-      props.setGridDimensions([props.gridDimensions[0], e.target.value]);
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      props.setGridDimensions([
+        props.gridDimensions[0],
+        value === "" ? 0 : Number(value),
+      ]);
     }
   };
 
   const treeProbChange = (e) => {
-    if (Number(e.target.value) > 0 && Number(e.target.value) <= 1) {
-      props.setTreeProbability(e.target.value);
+    const value = e.target.value;
+    if (value === "" || (Number(value) >= 0 && Number(value) <= 1)) {
+      props.setTreeProbability(value === "" ? NaN : Number(value));
+    }
+  };
+
+  const treeProbBlur = () => {
+    if (isNaN(props.treeProbability)) {
+      props.setTreeProbability(0);
     }
   };
 
@@ -27,23 +42,24 @@ export const Dimensions = (props) => {
       id: "rows",
       label: "Rows",
       type: "number",
-      value: props.gridDimensions[0],
+      value: props.gridDimensions[0] === 0 ? "" : props.gridDimensions[0],
       onChange: rowsChange,
     },
     {
       label: "Cols",
       type: "number",
-      value: props.gridDimensions[1],
+      value: props.gridDimensions[1] === 0 ? "" : props.gridDimensions[1],
       onChange: colsChange,
     },
     {
       label: "Tree Probability",
       type: "number",
-      value: props.treeProbability,
+      step: "0.1",
+      value: isNaN(props.treeProbability) ? "" : props.treeProbability,
       onChange: treeProbChange,
+      onBlur: treeProbBlur,
     },
   ];
-
   return (
     <OptionGroup title="Dimensions" inputData={data}>
       {data.map((data) =>

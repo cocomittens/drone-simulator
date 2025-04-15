@@ -28,6 +28,9 @@ export const Options = (props) => {
     battery,
   } = useDrone();
 
+  const isDeliveryDisabled =
+    props.gridDimensions[0] === 0 || props.gridDimensions[1] === 0 || isMoving;
+
   return (
     <Card id="options-container" className="p-1">
       <CardHeader>
@@ -91,7 +94,7 @@ export const Options = (props) => {
               );
             }
           }}
-          disabled={isMoving}
+          disabled={isDeliveryDisabled}
           className="bg-violet-600 w-72"
         >
           <span>{props.mode === "d" ? "Delivery" : "Execute"}</span>
